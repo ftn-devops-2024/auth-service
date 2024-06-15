@@ -22,9 +22,13 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
+    private String id;
+
     private String email;
     private String name;
     private String surname;
+    private String location;
+
     private String password;
     private Timestamp lastPasswordResetDate;
     private String loginPin;
@@ -74,6 +78,6 @@ public class User implements UserDetails {
     }
 
     public UserDTO toDto() {
-        return  new UserDTO(email, name, surname);
+        return  new UserDTO(id, email, name, surname);
     }
 }

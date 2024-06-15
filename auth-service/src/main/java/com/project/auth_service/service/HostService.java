@@ -6,6 +6,7 @@ import com.project.auth_service.model.Host;
 import com.project.auth_service.model.Role;
 import com.project.auth_service.repository.HostRepository;
 import com.project.auth_service.repository.RoleRepository;
+import com.project.auth_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +20,7 @@ import java.util.Optional;
 public class HostService {
 
     @Autowired
-    private HostRepository hostRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -37,6 +38,6 @@ public class HostService {
         role.ifPresent(roles::add);
         h.setRoles(roles);
         h.setPassword(passwordEncoder.encode(dto.getPassword()));
-        return hostRepository.save(h);
+        return userRepository.save(h);
     }
 }
