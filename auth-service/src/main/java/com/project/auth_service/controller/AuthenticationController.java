@@ -76,34 +76,4 @@ public class AuthenticationController {
         headers.add("Set-Cookie", cookie);
         return ResponseEntity.ok().headers(headers).body(new LoginResponse(user.getUsername(), jwt, user.getRole(), expiresIn));
     }
-
-    @GetMapping("/authorize/host")
-    @PreAuthorize("hasRole('ROLE_HOST')")
-    public ResponseEntity<UserDTO> authorizeHost(){
-        String authToken = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        User user;
-        try {
-            user = userService.authorize(authToken);
-        } catch (UnauthorizedException e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-
-        UserDTO dto = user.toDto();
-        return new ResponseEntity<>(dto, HttpStatus.OK);
-    }
-
-    @GetMapping("/authorize/guest")
-    @PreAuthorize("hasRole('GUEST')")
-    public ResponseEntity<UserDTO> authorizeGuest(){
-        String authToken = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        User user;
-        try {
-            user = userService.authorize(authToken);
-        } catch (UnauthorizedException e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-
-        UserDTO dto = user.toDto();
-        return new ResponseEntity<>(dto, HttpStatus.OK);
-    }
 }

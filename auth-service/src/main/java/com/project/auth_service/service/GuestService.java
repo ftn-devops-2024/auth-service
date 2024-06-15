@@ -5,6 +5,7 @@ import com.project.auth_service.model.Guest;
 import com.project.auth_service.model.Role;
 import com.project.auth_service.repository.GuestRepository;
 import com.project.auth_service.repository.RoleRepository;
+import com.project.auth_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,13 +19,12 @@ import java.util.Optional;
 public class GuestService {
 
     @Autowired
-    private GuestRepository guestRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
 
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
 
     public Guest save(RegisterUserDto dto){
         Guest g = new Guest();
@@ -37,6 +37,6 @@ public class GuestService {
         role.ifPresent(roles::add);
         g.setRoles(roles);
         g.setPassword(passwordEncoder.encode(dto.getPassword()));
-        return guestRepository.save(g);
+        return userRepository.save(g);
     }
 }

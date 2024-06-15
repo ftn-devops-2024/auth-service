@@ -111,35 +111,6 @@ public class TokenUtils {
         return issueAt;
     }
 
-    public String getAudienceFromToken(String token) {
-        String audience = null;
-        try {
-            final Claims claims = this.getAllClaimsFromToken(token);
-            if(claims != null)
-                audience = claims.getAudience();
-        } catch (ExpiredJwtException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return null;
-        }
-        return audience;
-    }
-
-    public Date getExpirationDateFromToken(String token) {
-        Date expiration = null;
-        try {
-            final Claims claims = this.getAllClaimsFromToken(token);
-            if(claims != null)
-                expiration = claims.getExpiration();
-        } catch (ExpiredJwtException ex) {
-            throw ex;
-        } catch (Exception e) {
-            return null;
-        }
-
-        return expiration;
-    }
-
     private Claims getAllClaimsFromToken(String token) {
         Claims claims;
         try {
@@ -154,16 +125,6 @@ public class TokenUtils {
         }
 
         return claims;
-    }
-
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
-        final String username = getUsernameFromToken(token);
-        final Date created = getIssuedAtDateFromToken(token);
-
-        return (username != null
-                && username.equals(userDetails.getUsername())
-                && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
     }
 
     public Boolean validateToken(String token, UserDetails userDetails, String fingerprint) {
