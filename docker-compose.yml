@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  auth-database:
+    image: mongo:latest
+    container_name: mongo-database
+    environment:
+      MONGO_INITDB_DATABASE: users
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: [ "CMD-SHELL", "mongo --eval 'db.stats().ok'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - mongo_data:/data/db
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "9003:9003"
+    environment:
+      REGISTRY_SERVER: service-registry
+      DB_SERVER: auth-database
+    depends_on:
+      - auth-database
+
+volumes:
+  mongo_data:
