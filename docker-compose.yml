@@ -4,8 +4,6 @@ services:
   auth-database:
     image: mongo:latest
     container_name: mongo-database
-    environment:
-      MONGO_INITDB_DATABASE: users
     ports:
       - "27017:27017"
     healthcheck:
