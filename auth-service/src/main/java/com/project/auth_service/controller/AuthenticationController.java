@@ -35,16 +35,12 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private PermissionRepository permissionRepository;
-
-
     private final LoggerService logger = new LoggerService(this.getClass());
 
     @PostMapping("/register")
-    public UserDTO register(@RequestBody RegisterUserDto dto) {
+    public ResponseEntity<UserDTO> register(@RequestBody RegisterUserDto dto) {
         logger.info(MessageFormat.format("Registering a new user with name {0}", dto.getName()));
-        return userService.register(dto);
+        return ResponseEntity.ok().body(userService.register(dto));
     }
 
     @PostMapping("/login")
