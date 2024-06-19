@@ -71,6 +71,6 @@ public class AuthenticationController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Set-Cookie", cookie);
-        return ResponseEntity.ok().headers(headers).body(new LoginResponse(user.getUsername(), jwt, user.getRole(), expiresIn));
+        return ResponseEntity.ok().headers(headers).body(new LoginResponse(user.getUsername(), jwt, user.getRole(), expiresIn, user.getId()));
     }
 }

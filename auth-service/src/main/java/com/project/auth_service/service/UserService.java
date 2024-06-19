@@ -28,6 +28,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     private GuestService guestService;
 
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -69,6 +71,7 @@ public class UserService implements UserDetailsService {
         u.setSurname(dto.getSurname());
         u.setLocation(dto.getAddress());
         u.setDeleted(dto.getDeleted());
+        if(!dto.getPassword().isEmpty()) u.setPassword(passwordEncoder.encode(dto.getPassword()));
         return userRepository.save(u);
     }
 }

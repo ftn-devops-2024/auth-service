@@ -78,6 +78,6 @@ public class User implements UserDetails {
     }
 
     public UserDTO toDto() {
-        return  new UserDTO(id, email, name, surname, location, getRole(), deleted);
+        return  new UserDTO(id, email, name, surname, location, getRole(), deleted, "");
     }
 }

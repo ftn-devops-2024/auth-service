@@ -18,4 +18,6 @@ public class UserDTO {
     private String role;
     private Boolean deleted;
 
+    private String password;
+
 }
