@@ -14,5 +14,8 @@ public class UserDTO {
     private String email;
     private String name;
     private String surname;
+    private String address;
+    private String role;
+    private Boolean deleted;
 
 }
