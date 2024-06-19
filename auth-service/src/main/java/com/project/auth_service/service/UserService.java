@@ -13,14 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
-
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     private TokenUtils tokenUtils;
@@ -30,6 +27,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private GuestService guestService;
+
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
     @Override
@@ -48,10 +47,6 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void save(User user){
-        userRepository.save(user);
-    }
-
     public User findByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
@@ -65,4 +60,18 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public User findById(String id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
+
+    public User update(UserDTO dto) {
+        User u = userRepository.findById(dto.getId()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        u.setEmail(dto.getEmail());
+        u.setName(dto.getName());
+        u.setSurname(dto.getSurname());
+        u.setLocation(dto.getAddress());
+        u.setDeleted(dto.getDeleted());
+        if(!dto.getPassword().isEmpty()) u.setPassword(passwordEncoder.encode(dto.getPassword()));
+        return userRepository.save(u);
+    }
 }

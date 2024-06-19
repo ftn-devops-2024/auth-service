@@ -45,6 +45,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginDto dto){
+        logger.info(MessageFormat.format("User with email {0} logging in", dto.getMail()));
         Authentication authentication;
         try{
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -70,6 +71,6 @@ public class AuthenticationController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Set-Cookie", cookie);
-        return ResponseEntity.ok().headers(headers).body(new LoginResponse(user.getUsername(), jwt, user.getRole(), expiresIn));
+        return ResponseEntity.ok().headers(headers).body(new LoginResponse(user.getUsername(), jwt, user.getRole(), expiresIn, user.getId()));
     }
 }
