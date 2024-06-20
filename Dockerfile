@@ -32,7 +32,7 @@ COPY --from=download /home/curl_user/opentelemetry-javaagent.jar /opentelemetry-
 
 
 # Expose the port the application runs on
-EXPOSE 9003
+EXPOSE 9005
 
 # Command to run the application
 ENTRYPOINT ["java", "-javaagent:/opentelemetry-javaagent.jar", "-jar", "app.jar"]
