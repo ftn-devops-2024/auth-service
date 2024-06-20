@@ -66,6 +66,9 @@ public class WebSecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint()).and()
                 .authorizeHttpRequests()
                 .requestMatchers("api/auth/**").permitAll()
+                .requestMatchers("/actuator/**").permitAll() // Allow unauthenticated access to Prometheus endpoint
+                .requestMatchers("/metrics").permitAll() // Allow unauthenticated access to Prometheus endpoint
+                .requestMatchers("/test").permitAll()
                 .anyRequest().authenticated().and()
                 .logout(logout -> logout.logoutUrl("/").logoutSuccessUrl("/").invalidateHttpSession(true))
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userDetailsService()), BasicAuthenticationFilter.class);

@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     container_name: auth-service
     ports:
-      - "9005:9005"
+      - "9006:9005"
     environment:
       REGISTRY_SERVER: service-registry
       DB_SERVER: auth-database
