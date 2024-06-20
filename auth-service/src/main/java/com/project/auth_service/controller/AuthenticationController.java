@@ -1,18 +1,15 @@
 package com.project.auth_service.controller;
 
 import com.project.auth_service.dto.*;
-import com.project.auth_service.exceptions.UnauthorizedException;
 import com.project.auth_service.model.User;
-import com.project.auth_service.repository.PermissionRepository;
-import com.project.auth_service.service.LoggerService;
 import com.project.auth_service.service.UserService;
 import com.project.auth_service.utils.TokenUtils;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -35,7 +32,7 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    private final LoggerService logger = new LoggerService(this.getClass());
+    Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @PostMapping("/register")
     public ResponseEntity<UserDTO> register(@RequestBody RegisterUserDto dto) {
