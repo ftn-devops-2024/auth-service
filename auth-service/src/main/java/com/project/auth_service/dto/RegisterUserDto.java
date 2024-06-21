@@ -9,7 +9,7 @@ public class RegisterUserDto {
 
     private String surname;
 
-    private String mail;
+    private String email;
 
     private String password;
 

@@ -17,7 +17,12 @@ public class UserDTO {
     private String address;
     private String role;
     private Boolean deleted;
-
     private String password;
+
+    private boolean reservationRequest;
+    private boolean reservationCanceled;
+    private boolean hostReview;
+    private boolean accommodationReview;
+    private boolean hostResponse;
 
 }

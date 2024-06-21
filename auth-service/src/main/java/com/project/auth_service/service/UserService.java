@@ -66,11 +66,24 @@ public class UserService implements UserDetailsService {
 
     public User update(UserDTO dto) {
         User u = userRepository.findById(dto.getId()).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        u.setEmail(dto.getEmail());
-        u.setName(dto.getName());
-        u.setSurname(dto.getSurname());
-        u.setLocation(dto.getAddress());
+        if(dto.getEmail() != null && !dto.getEmail().isEmpty()) {
+            u.setEmail(dto.getEmail());
+        }
+        if(dto.getName() != null && !dto.getName().isEmpty()) {
+            u.setName(dto.getName());
+        }
+        if(dto.getSurname() != null && !dto.getSurname().isEmpty()) {
+            u.setSurname(dto.getSurname());
+        }
+        if(dto.getAddress() != null && !dto.getAddress().isEmpty()) {
+            u.setLocation(dto.getAddress());
+        }
         u.setDeleted(dto.getDeleted());
+        u.setHostResponse(dto.isHostResponse());
+        u.setHostReview(dto.isHostReview());
+        u.setReservationCanceled(dto.isReservationCanceled());
+        u.setReservationRequest(dto.isReservationRequest());
+        u.setAccommodationReview(dto.isAccommodationReview());
         if(!dto.getPassword().isEmpty()) u.setPassword(passwordEncoder.encode(dto.getPassword()));
         return userRepository.save(u);
     }

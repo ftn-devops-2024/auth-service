@@ -3,7 +3,6 @@ package com.project.auth_service.service;
 import com.project.auth_service.dto.RegisterUserDto;
 import com.project.auth_service.model.Guest;
 import com.project.auth_service.model.Role;
-import com.project.auth_service.repository.GuestRepository;
 import com.project.auth_service.repository.RoleRepository;
 import com.project.auth_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class GuestService {
 
     public Guest save(RegisterUserDto dto){
         Guest g = new Guest();
-        g.setEmail(dto.getMail());
+        g.setEmail(dto.getEmail());
         g.setName(dto.getName());
         g.setSurname(dto.getSurname());
         g.setEnabled(true);
@@ -37,6 +36,10 @@ public class GuestService {
         role.ifPresent(roles::add);
         g.setRoles(roles);
         g.setPassword(passwordEncoder.encode(dto.getPassword()));
+        g.setHostReview(false);
+        g.setAccommodationReview(false);
+        g.setReservationCanceled(false);
+        g.setReservationRequest(false);
         return userRepository.save(g);
     }
 }
