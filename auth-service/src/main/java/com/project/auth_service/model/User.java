@@ -36,7 +36,13 @@ public class User implements UserDetails {
     private Boolean locked = false;
     private Boolean deleted = false;
 
-    private boolean enabled = false;
+    private boolean enabled = true;
+
+    private boolean reservationRequest = true;
+    private boolean reservationCanceled = true;
+    private boolean hostReview = true;
+    private boolean accommodationReview = true;
+    private boolean hostResponse = true;
 
     public User(){}
 
@@ -78,6 +84,7 @@ public class User implements UserDetails {
     }
 
     public UserDTO toDto() {
-        return  new UserDTO(id, email, name, surname, location, getRole(), deleted, "");
+        return  new UserDTO(id, email, name, surname, location, getRole(), deleted, "",
+                reservationRequest, reservationCanceled, hostReview, accommodationReview, hostResponse);
     }
 }

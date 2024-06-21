@@ -1,10 +1,8 @@
 package com.project.auth_service.service;
 
 import com.project.auth_service.dto.RegisterUserDto;
-import com.project.auth_service.model.Guest;
 import com.project.auth_service.model.Host;
 import com.project.auth_service.model.Role;
-import com.project.auth_service.repository.HostRepository;
 import com.project.auth_service.repository.RoleRepository;
 import com.project.auth_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ public class HostService {
 
     public Host save(RegisterUserDto dto){
         Host h = new Host();
-        h.setEmail(dto.getMail());
+        h.setEmail(dto.getEmail());
         h.setName(dto.getName());
         h.setSurname(dto.getSurname());
         h.setEnabled(true);
@@ -38,6 +36,7 @@ public class HostService {
         role.ifPresent(roles::add);
         h.setRoles(roles);
         h.setPassword(passwordEncoder.encode(dto.getPassword()));
+        h.setHostResponse(false);
         return userRepository.save(h);
     }
 }
