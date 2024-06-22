@@ -20,10 +20,15 @@ services:
       dockerfile: Dockerfile
     container_name: auth-service
     ports:
-      - "9003:9003"
+      - "9006:9005"
     environment:
       REGISTRY_SERVER: service-registry
       DB_SERVER: auth-database
+      MANAGEMENT_METRICS_TAGS_APPLICATION: auth-service
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+      OTEL_SERVICE_NAME: auth-service
+      OTEL_RESOURCE_ATTRIBUTES: compose_service=auth-service
+      OTEL_METRICS_EXPORTER: none
     depends_on:
       - auth-database
 
