@@ -15,4 +15,6 @@ public class RegisterUserDto {
 
     private String role;
 
+    private String address;
+
 }
