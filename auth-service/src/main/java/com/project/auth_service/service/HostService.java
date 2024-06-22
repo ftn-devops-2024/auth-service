@@ -37,6 +37,7 @@ public class HostService {
         h.setRoles(roles);
         h.setPassword(passwordEncoder.encode(dto.getPassword()));
         h.setHostResponse(false);
+        h.setLocation(dto.getAddress());
         return userRepository.save(h);
     }
 }

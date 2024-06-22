@@ -40,6 +40,7 @@ public class GuestService {
         g.setAccommodationReview(false);
         g.setReservationCanceled(false);
         g.setReservationRequest(false);
+        g.setLocation(dto.getAddress());
         return userRepository.save(g);
     }
 }
